@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@mui/x-data-grid": "^6.18.1",
     "concurrently": "^8.2.2",
     "cors": "^2.8.5",
     "dot": "^1.1.3",
