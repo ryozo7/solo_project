@@ -12,12 +12,13 @@ let taskCollection = [
     name: 'ryozo',
     id: 'aaa',
     type: 'task',
+    progress: 0,
   },
 ];
 
 function App() {
   const [table, setTable] = useState([]);
-  const [currentView, setCurrentView] = useState();
+  const [currentView, setCurrentView] = useState('');
   const [tasks, setTasks] = useState(taskCollection);
 
   const serverUrl = 'http://localhost:8080'; // サーバー側のURL
@@ -28,7 +29,7 @@ function App() {
       .then((res) => setTable(res));
   };
 
-  const handleEditBtnClick = async () => {
+  const handleEditBtnClick = () => {
     setCurrentView('editView');
   };
 
@@ -42,21 +43,40 @@ function App() {
     };
     let newTasks = tasks.slice();
     newTasks.push(task);
-    await console.log(tasks);
-    await console.log(task);
-    await console.log(newTasks);
     await setTasks(newTasks);
-    await console.log(tasks);
   };
   const startRef = useRef();
   const endRef = useRef();
   const codeRef = useRef();
   const nameRef = useRef();
+  const ganttRef = useRef();
+  const handleConfirmeBtnClick = () => {
+    console.log(ganttRef);
+  };
+  const handleSaveBtnClick = async () => {
+    const changeKeyName = await (() => {
+      const array = tasks.map((elem) => {
+        return { code: elem.id, name: elem.name, start: elem.start, end: elem.end, type: 'task', progress: 0 };
+      });
+      return array;
+    })();
+
+    const requestOptions = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(changeKeyName),
+    };
+    console.log(requestOptions.body);
+    await fetch(`${serverUrl}/api`, requestOptions);
+  };
   return (
     <>
       <button onClick={handleViewBtnClick}>view</button>
       <button onClick={handleEditBtnClick}>edit</button>
       <button onClick={handleAddBtnClick}>add</button>
+      <button onClick={handleSaveBtnClick}>save</button>
+      <button onClick={handleConfirmeBtnClick}>confirme</button>
+
       {currentView === 'tableView' ? <Table rows={table} /> : []}
       {currentView === 'editView' ? (
         <>

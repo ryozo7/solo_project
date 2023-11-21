@@ -3,7 +3,7 @@ const app = express();
 const PORT = 8080;
 app.use('/', express.static('public'));
 app.use(express.json());
-// const knex = require('../knex');
+
 //CORSエラーの解消
 const cors = require('cors');
 const config = require('./knexfile');
@@ -20,11 +20,17 @@ app.use(
 const WORK_TABLE = 'work';
 
 app.get('/api', async (req, res) => {
+  console.log('GETリクエスト');
   const workSamaple = await knex.select().from(WORK_TABLE);
   res.send(workSamaple);
 });
 
+app.put('/api', async (req, res) => {
+  console.log('PUTリクエスト');
+  await knex(WORK_TABLE).insert(req.body);
+  res.status(200).end();
+});
+
 app.listen(PORT, () => {
-  console.log(`I am now waiting for incoming HTTP traffic on port ${PORT}!`);
   console.log('http://localhost:8080');
 });

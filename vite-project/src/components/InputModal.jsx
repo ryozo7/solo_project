@@ -1,5 +1,3 @@
-import { useRef } from 'react';
-
 const InputModal = (props) => {
   const { startRef, endRef, codeRef, nameRef } = props;
   return (
