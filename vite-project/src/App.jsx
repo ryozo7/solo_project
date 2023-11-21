@@ -1,22 +1,71 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import Table from './components/Table';
 import './App.css';
+import InputModal from './components/InputModal';
+import GanttChart from './components/Gantt';
+
+const currentDate = new Date();
+let taskCollection = [
+  {
+    start: new Date(currentDate.getFullYear(), currentDate.getMonth(), 16),
+    end: new Date(currentDate.getFullYear(), currentDate.getMonth(), 18),
+    name: 'ryozo',
+    id: 'aaa',
+    type: 'task',
+  },
+];
 
 function App() {
-  const [table, setTable] = useState('');
-  const [currentview, setCurrentView] = useState();
+  const [table, setTable] = useState([]);
+  const [currentView, setCurrentView] = useState();
+  const [tasks, setTasks] = useState(taskCollection);
+
   const serverUrl = 'http://localhost:8080'; // サーバー側のURL
-  const handleBtnClick = async () => {
+  const handleViewBtnClick = async () => {
+    setCurrentView('tableView');
     await fetch(`${serverUrl}/api`, { method: 'GET' })
       .then((res) => res.json())
       .then((res) => setTable(res));
   };
 
+  const handleEditBtnClick = async () => {
+    setCurrentView('editView');
+  };
+
+  const handleAddBtnClick = async () => {
+    const task = {
+      start: new Date(startRef.current.value),
+      end: new Date(endRef.current.value),
+      name: nameRef.current.value,
+      id: codeRef.current.value,
+      type: 'task',
+    };
+    let newTasks = tasks.slice();
+    newTasks.push(task);
+    await console.log(tasks);
+    await console.log(task);
+    await console.log(newTasks);
+    await setTasks(newTasks);
+    await console.log(tasks);
+  };
+  const startRef = useRef();
+  const endRef = useRef();
+  const codeRef = useRef();
+  const nameRef = useRef();
   return (
     <>
-      <button onClick={handleBtnClick}>view</button>
-      <button>edit</button>
-      <Table rows={table} />
+      <button onClick={handleViewBtnClick}>view</button>
+      <button onClick={handleEditBtnClick}>edit</button>
+      <button onClick={handleAddBtnClick}>add</button>
+      {currentView === 'tableView' ? <Table rows={table} /> : []}
+      {currentView === 'editView' ? (
+        <>
+          <InputModal startRef={startRef} endRef={endRef} codeRef={codeRef} nameRef={nameRef} />
+          <GanttChart tasks={tasks} />
+        </>
+      ) : (
+        []
+      )}
     </>
   );
 }

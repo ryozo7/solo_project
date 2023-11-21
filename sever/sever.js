@@ -18,19 +18,8 @@ app.use(
 );
 
 const WORK_TABLE = 'work';
-// const getall = async () => {
-//   const workSamaple = await knex.select().from(WORK_TABLE);
-//   return workSamaple;
-// };
-
-const obj = {
-  id: 1,
-  name: 'yusuke',
-  age: 26,
-};
 
 app.get('/api', async (req, res) => {
-  console.log('サーバー来てる？？');
   const workSamaple = await knex.select().from(WORK_TABLE);
   res.send(workSamaple);
 });
