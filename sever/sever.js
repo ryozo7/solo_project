@@ -4,11 +4,11 @@ const PORT = 8080;
 app.use('/', express.static('public'));
 app.use(express.json());
 
-//CORSエラーの解消
-const cors = require('cors');
 const config = require('./knexfile');
 const knex = require('knex')(config);
 
+// CORSエラーの解消;
+const cors = require('cors');
 app.use(
   cors({
     origin: 'http://localhost:5173', //アクセス許可するオリジン
@@ -32,5 +32,5 @@ app.put('/api', async (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log('http://localhost:8080');
+  console.log('http://localhost:5173');
 });
