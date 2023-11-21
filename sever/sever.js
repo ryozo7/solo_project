@@ -8,14 +8,14 @@ const config = require('./knexfile');
 const knex = require('knex')(config);
 
 // CORSエラーの解消;
-const cors = require('cors');
-app.use(
-  cors({
-    origin: 'http://localhost:5173', //アクセス許可するオリジン
-    credentials: true, //レスポンスヘッダーにAccess-Control-Allow-Credentials追加
-    optionsSuccessStatus: 200, //レスポンスstatusを200に設定
-  })
-);
+// const cors = require('cors');
+// app.use(
+//   cors({
+//     origin: 'http://localhost:5173', //アクセス許可するオリジン
+//     credentials: true, //レスポンスヘッダーにAccess-Control-Allow-Credentials追加
+//     optionsSuccessStatus: 200, //レスポンスstatusを200に設定
+//   })
+// );
 
 const WORK_TABLE = 'work';
 
