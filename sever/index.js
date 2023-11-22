@@ -1,4 +1,5 @@
-const app = require('./app');
-const PORT = process.env.PORT || 9000;
+const setupServer = require('./sever');
 
-app.listen(PORT, () => console.log(`listening on port : ${PORT}`));
+const PORT = process.env.PORT || 8080;
+
+setupServer.listen(PORT, () => console.log(`listening on port : ${PORT}`));
