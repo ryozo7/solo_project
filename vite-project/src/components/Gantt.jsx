@@ -12,7 +12,6 @@ import 'gantt-task-react/dist/index.css';
 // ];
 const dateChange = (task) => {
   // setTasks(tasks.map((t) => (t.id === task.id ? task : t)));
-  console.log(task);
 };
 export default function GanttChart(props) {
   const { tasks } = props;

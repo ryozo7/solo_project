@@ -40,6 +40,7 @@ function App() {
       name: nameRef.current.value,
       id: codeRef.current.value,
       type: 'task',
+      progress: 0,
     };
     let newTasks = tasks.slice();
     newTasks.push(task);
@@ -56,7 +57,7 @@ function App() {
   const handleSaveBtnClick = async () => {
     const changeKeyName = await (() => {
       const array = tasks.map((elem) => {
-        return { code: elem.id, name: elem.name, start: elem.start, end: elem.end, type: 'task', progress: 0 };
+        return { code: elem.id, name: elem.name, start: elem.start, end: elem.end };
       });
       return array;
     })();
