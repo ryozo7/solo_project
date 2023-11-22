@@ -21,15 +21,23 @@ const setupServer = () => {
   const WORK_TABLE = 'work';
 
   app.get('/api', async (req, res) => {
-    console.log('GETリクエスト');
-    const workSamaple = await knex.select().from(WORK_TABLE);
-    res.send(workSamaple);
+    try {
+      console.log('GETリクエスト');
+      const workSamaple = await knex.select().from(WORK_TABLE);
+      await res.status(200).send(workSamaple);
+    } catch (err) {
+      res.status(404).send(err);
+    }
   });
 
   app.put('/api', async (req, res) => {
-    console.log('PUTリクエスト');
-    await knex(WORK_TABLE).insert(req.body);
-    res.status(200).end();
+    try {
+      console.log('PUTリクエスト');
+      await knex(WORK_TABLE).insert(req.body);
+      await res.status(200).end();
+    } catch (err) {
+      res.status(404).send(err);
+    }
   });
 
   app.listen(PORT, () => {

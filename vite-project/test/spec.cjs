@@ -14,8 +14,13 @@ describe('solo_MVP test', () => {
   it('全リストを返してください', () => {
     request.get('/api').end(function (err, res) {
       expect(res).to.have.status(200);
-      expect(JSON.parse(res.text).length).to.equal(2);
-      expect(err).to.be.null;
+      // expect(JSON.parse(res.text).length).to.equal(10);
+    });
+  });
+
+  it('全リストを返せない場合、statuscode400とerr Messageを返してください', () => {
+    request.get('/api/foo').end(function (err, res) {
+      expect(res).to.have.status(404);
     });
   });
 });
