@@ -1,7 +1,7 @@
 const setupServer = () => {
   const express = require('express');
   const app = express();
-  const PORT = 8080;
+  const PORT = 5173;
   app.use('/', express.static('public'));
   app.use(express.json());
 
@@ -35,6 +35,7 @@ const setupServer = () => {
   app.listen(PORT, () => {
     console.log('http://localhost:5173');
   });
+
   return app;
 };
 
